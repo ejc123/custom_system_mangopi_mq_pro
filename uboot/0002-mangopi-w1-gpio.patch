@@ -1,0 +1,18 @@
+diff --git a/arch/riscv/dts/sun20i-d1-mangopi-mq-pro.dts b/arch/riscv/dts/sun20i-d1-mangopi-mq-pro.dts
+index a7149baf18..43eaf6093f 100644
+--- a/arch/riscv/dts/sun20i-d1-mangopi-mq-pro.dts
++++ b/arch/riscv/dts/sun20i-d1-mangopi-mq-pro.dts
+@@ -73,6 +73,13 @@
+ 		compatible = "mmc-pwrseq-simple";
+ 		reset-gpios = <&pio 6 17 GPIO_ACTIVE_LOW>; /* PG17 */
+ 	};
++
++	w1: onewire@0 {
++		compatible = "w1-gpio";
++		gpios = <&pio 1 7 GPIO_ACTIVE_HIGH>; /* PB7 */
++		pinctrl-names = "default";
++		status = "okay";
++	};
+ };
+ 
+ &cpu0 {
