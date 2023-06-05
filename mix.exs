@@ -1,8 +1,8 @@
 defmodule NervesSystemMangopiMQPro.MixProject do
   use Mix.Project
 
-  @github_organization "nerves-project"
-  @app :nerves_system_mangopi_mq_pro
+  @github_organization "ejc123"
+  @app :custom_mangopi_mq_pro
   @source_url "https://github.com/#{@github_organization}/#{@app}"
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
@@ -12,7 +12,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.9",
+      elixir: "~> 1.13",
       compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
@@ -66,7 +66,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.6.0 or ~> 1.7.15 or ~> 1.8", runtime: false},
-      {:nerves_system_br, "1.22.5", runtime: false},
+      {:nerves_system_br, "1.22.7", runtime: false},
       {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 1.8.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
