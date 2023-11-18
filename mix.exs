@@ -56,7 +56,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
         {"TARGET_OS", "linux"},
         {"TARGET_ABI", "gnu"},
         {"TARGET_GCC_FLAGS",
-          "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
+          "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv_zicsr_zifencei -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
 
       ],
       checksum: package_files()
@@ -66,8 +66,8 @@ defmodule NervesSystemMangopiMQPro.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.6.0 or ~> 1.7.15 or ~> 1.8", runtime: false},
-      {:nerves_system_br, "1.23.2", runtime: false},
-      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 1.8.0", runtime: false},
+      {:nerves_system_br, "1.25.0", runtime: false},
+      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 13.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
@@ -103,7 +103,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
       "rootfs_overlay",
       "uboot",
       "CHANGELOG.md",
-      "fwup-revert.conf",
+      "fwup-ops.conf",
       "fwup.conf",
       "LICENSE",
       "mix.exs",
