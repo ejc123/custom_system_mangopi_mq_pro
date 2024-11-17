@@ -12,7 +12,8 @@ defmodule NervesSystemMangopiMQPro.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.13",
+      # Because we're using OTP 27, we need to enforce Elixir 1.17 or later.
+      elixir: "~> 1.17",
       compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
@@ -56,7 +57,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
         {"TARGET_OS", "linux"},
         {"TARGET_ABI", "gnu"},
         {"TARGET_GCC_FLAGS",
-          "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
+          "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv_zicsr_zifencei -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
 
       ],
       checksum: package_files()
@@ -65,9 +66,9 @@ defmodule NervesSystemMangopiMQPro.MixProject do
 
   defp deps do
     [
-      {:nerves, "~> 1.6.0 or ~> 1.7.15 or ~> 1.8", runtime: false},
-      {:nerves_system_br, "1.22.7", runtime: false},
-      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 1.8.0", runtime: false},
+      {:nerves, "~> 1.11", runtime: false},
+      {:nerves_system_br, "1.29.0", runtime: false},
+      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 14.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
@@ -81,7 +82,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
     [
       extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
-      assets: "assets",
+      assets: %{"assets" => "./assets"},
       source_ref: "v#{@version}",
       source_url: @source_url,
       skip_undefined_reference_warnings_on: ["CHANGELOG.md"]
@@ -103,7 +104,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
       "rootfs_overlay",
       "uboot",
       "CHANGELOG.md",
-      "fwup-revert.conf",
+      "fwup-ops.conf",
       "fwup.conf",
       "LICENSE",
       "mix.exs",
