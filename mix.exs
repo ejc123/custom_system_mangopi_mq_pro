@@ -20,12 +20,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
       package: package(),
       deps: deps(),
       aliases: [loadconfig: [&bootstrap/1]],
-      docs: docs(),
-      preferred_cli_env: %{
-        docs: :docs,
-        "hex.build": :docs,
-        "hex.publish": :docs
-      }
+      docs: docs()
     ]
   end
 
@@ -37,6 +32,10 @@ defmodule NervesSystemMangopiMQPro.MixProject do
     set_target()
     Application.start(:nerves_bootstrap)
     Mix.Task.run("loadconfig", args)
+  end
+
+  def cli do
+    [preferred_envs: %{docs: :docs, "hex.build": :docs, "hex.publish": :docs}]
   end
 
   defp nerves_package do
@@ -57,8 +56,7 @@ defmodule NervesSystemMangopiMQPro.MixProject do
         {"TARGET_OS", "linux"},
         {"TARGET_ABI", "gnu"},
         {"TARGET_GCC_FLAGS",
-          "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv_zicsr_zifencei -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
-
+         "-mabi=lp64d -fstack-protector-strong -march=rv64imafdcv_zicsr_zifencei -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
       ],
       checksum: package_files()
     ]
@@ -67,8 +65,8 @@ defmodule NervesSystemMangopiMQPro.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.11", runtime: false},
-      {:nerves_system_br, "1.29.0", runtime: false},
-      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 14.2.0", runtime: false},
+      {:nerves_system_br, "1.31.3", runtime: false},
+      {:nerves_toolchain_riscv64_nerves_linux_gnu, "~> 13.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
@@ -92,8 +90,12 @@ defmodule NervesSystemMangopiMQPro.MixProject do
   defp package do
     [
       files: package_files(),
-      licenses: ["Apache-2.0"],
-      links: %{"GitHub" => @source_url}
+      licenses: ["GPL-2.0-only", "GPL-2.0-or-later"],
+      links: %{
+        "GitHub" => @source_url,
+        "REUSE Compliance" =>
+          "https://api.reuse.software/info/github.com/nerves-project/nerves_system_mangopi_mq_pro"
+      }
     ]
   end
 
@@ -106,12 +108,13 @@ defmodule NervesSystemMangopiMQPro.MixProject do
       "CHANGELOG.md",
       "fwup-ops.conf",
       "fwup.conf",
-      "LICENSE",
+      "LICENSES/*",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
       "post-createfs.sh",
       "README.md",
+      "REUSE.toml",
       "VERSION"
     ]
   end
